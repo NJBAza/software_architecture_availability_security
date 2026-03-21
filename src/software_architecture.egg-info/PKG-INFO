@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: software_architecture
+Version: 0.0.1
+Summary: Software Architecture
+Requires-Python: <3.12,>=3.11
+Requires-Dist: fastapi[standard]==0.135.1
+Requires-Dist: ruff>=0.15.7
+Requires-Dist: scalar-fastapi>=1.8.1
+Provides-Extra: dev
+Requires-Dist: ipykernel<7,>=6.29.5; extra == "dev"
+Requires-Dist: pip>=24.2; extra == "dev"
+Requires-Dist: pre-commit<5,>=4.1.0; extra == "dev"
+Requires-Dist: pytest<9,>=8.3.4; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pre-commit<5,>=4.1.0; extra == "test"
+Requires-Dist: delta-spark==3.3.0; extra == "test"
+Requires-Dist: pytest>=8.3.5; extra == "test"
+Requires-Dist: pytest-cov>=6.1.0; extra == "test"
+Requires-Dist: pydantic-settings>=2.8.1; extra == "test"
