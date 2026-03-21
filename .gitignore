@@ -20,6 +20,8 @@
 # Python compiled files, virtual environments, and cache
 
 __pycache__/
+__pycache__/**
+
 *.py[cod]
 *$py.class
 *.so
