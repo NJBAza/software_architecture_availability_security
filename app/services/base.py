@@ -1,6 +1,6 @@
 from uuid import UUID
+
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlmodel import SQLModel
 
 
 class BaseService:
@@ -22,4 +22,3 @@ class BaseService:
 
     async def _delete(self, entity):
         await self.session.delete(entity)
-

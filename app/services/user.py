@@ -40,24 +40,26 @@ class UserService(BaseService):
         # Add the user to database and get refreshed data
         user = await self._add(user)
         # Generate the token with user id
-        token = generate_url_safe_token({
-            # Email can be skipped as not used in our case
-            # "email": user.email,
-            "id": str(user.id)
-        })
+        token = generate_url_safe_token(
+            {
+                # Email can be skipped as not used in our case
+                # "email": user.email,
+                "id": str(user.id)
+            }
+        )
         # Send registration email with verification link
         send_email_with_template.delay(
             recipients=[user.email],
             subject="Verify Your Account With FastShip",
             context={
                 "username": user.name,
-                "verification_url": f"http://{app_settings.APP_DOMAIN}/{router_prefix}/verify?token={token}"
+                "verification_url": f"http://{app_settings.APP_DOMAIN}/{router_prefix}/verify?token={token}",
             },
             template_name="mail_email_verify.html",
         )
-        
+
         return user
-    
+
     async def verify_email(self, token: str):
         token_data = decode_url_safe_token(token)
         # Validate the token
@@ -67,13 +69,11 @@ class UserService(BaseService):
         # to mark user as verified
         user = await self._get(UUID(token_data["id"]))
         user.email_verified = True
-        
+
         await self._update(user)
 
     async def _get_by_email(self, email) -> User | None:
-        return await self.session.scalar(
-            select(self.model).where(self.model.email == email)
-        )
+        return await self.session.scalar(select(self.model).where(self.model.email == email))
 
     async def _generate_token(self, email, password) -> str:
         # Validate the credentials
@@ -84,7 +84,7 @@ class UserService(BaseService):
             user.password_hash,
         ):
             raise BadCredentials()
-        
+
         if not user.email_verified:
             raise ClientNotVerified()
 

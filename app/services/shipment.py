@@ -95,13 +95,13 @@ class ShipmentService(BaseService):
             )
 
         return await self._update(shipment)
-    
+
     async def add_tag(self, id: UUID, tag_name: TagName):
         shipment = await self.get(id)
         shipment.tags.append(await tag_name.tag(self.session))
 
         return await self._update(shipment)
-    
+
     async def remove_tag(self, id: UUID, tag_name: TagName):
         shipment = await self.get(id)
 
@@ -129,7 +129,6 @@ class ShipmentService(BaseService):
         self.session.add(new_review)
         await self.session.commit()
 
-    
     async def cancel(self, id: UUID, seller: Seller) -> Shipment:
         # Validate the seller
         shipment = await self.get(id)

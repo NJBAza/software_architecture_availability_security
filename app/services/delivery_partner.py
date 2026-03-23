@@ -1,4 +1,4 @@
-from typing import Sequence
+from collections.abc import Sequence
 
 from sqlmodel import select
 
@@ -20,20 +20,16 @@ class DeliveryPartnerService(UserService):
         )
         for zip_code in delivery_partner.serviceable_zip_codes:
             location = await self.session.get(Location, zip_code)
-            partner.servicable_locations.append(
-                location if location else Location(zip_code=zip_code)
-            )
+            partner.servicable_locations.append(location if location else Location(zip_code=zip_code))
         return await self._update(partner)
 
     async def get_partner_by_zipcode(self, zipcode: int) -> Sequence[DeliveryPartner]:
         return (
             await self.session.scalars(
-                select(DeliveryPartner)
-                .join(DeliveryPartner.servicable_locations)
-                .where(Location.zip_code == zipcode)
+                select(DeliveryPartner).join(DeliveryPartner.servicable_locations).where(Location.zip_code == zipcode)
             )
         ).all()
-    
+
     async def assign_shipment(self, shipment: Shipment):
         eligible_partners = await self.get_partner_by_zipcode(shipment.destination)
 

@@ -235,8 +235,7 @@ class DeliveryPartner(User, table=True):
         return [
             shipment
             for shipment in self.shipments
-            if shipment.status != ShipmentStatus.delivered
-            or shipment.status != ShipmentStatus.cancelled
+            if shipment.status != ShipmentStatus.delivered or shipment.status != ShipmentStatus.cancelled
         ]
 
     @property
@@ -248,7 +247,7 @@ class Location(SQLModel, table=True):
     __tablename__ = "location"
 
     zip_code: int = Field(primary_key=True)
-    
+
     # Additional metadata fields
     # estimated_delivery_days: int = Field(default=3)
     # surcharge: float = Field(default=0.0)
