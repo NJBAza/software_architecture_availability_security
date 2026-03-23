@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status
 from scalar_fastapi import get_scalar_api_reference
 from typing import Any
 
@@ -49,15 +49,18 @@ def get_last_shipment() -> dict[str, Any]:
     return shipments[id]
 
 @app.get("/shipment/")
-def get_shipment(id: int | None = None) -> dict[str, Any]:
+def get_shipment(id: int = None, status_code: int = status.HTTP_200_OK) -> dict[str, Any]:
     """Get the details of a shipment by its ID."""
     if not id:
         id = min(shipments.keys())
         return shipments[id]
 
     if id not in shipments:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Shipment not found")
         return {"error": "Shipment not found"}
     return shipments[id]
+
 
 @app.get("/scalar", include_in_schema=False)
 def get_scalar_docs() -> dict[str, Any]:

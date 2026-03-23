@@ -1,3 +1,5 @@
+LICENSE
+README.md
 pyproject.toml
 version.txt
 src/software_architecture.egg-info/PKG-INFO
