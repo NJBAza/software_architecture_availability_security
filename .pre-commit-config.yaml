@@ -20,7 +20,7 @@ repos:
     rev: 0.10.12
     hooks:
       # Example hook to keep uv.lock in sync with pyproject.toml
-      - id: uv-lock
+#      - id: uv-lock
       - id: uv-sync
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
