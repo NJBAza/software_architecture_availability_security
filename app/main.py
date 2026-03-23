@@ -60,12 +60,35 @@ def get_shipment_field(field: str, id: int) -> dict[str, Any]:
 
 
 @app.put("/shipment")
-def update_shipment(id: int, data: dict[str, Any]) -> dict[str, Any]:
+def update_shipment(id: int, weight: float, content: str, state: str) -> dict[str, Any]:
     """Update the details of a shipment by its ID."""
-    if id not in shipments:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Shipment not found")
-    shipments[id].update(data)
-    return {"message": "Shipment updated successfully"}
+    shipments[id] = {"weight": weight, "content": content, "state": state}
+    return shipments[id]
+
+
+@app.patch("/shipment")
+def patch_shipment(id: int, body: dict[str, Any]) -> dict[str, Any]:
+    """Partially update the details of a shipment by its ID."""
+    shipment = shipments[id]
+
+    shipment.update(body)
+    return shipment
+    if body.get("content"):
+        shipment["content"] = body["content"]
+    if body.get("weight"):
+        shipment["weight"] = body["weight"]
+    if body.get("state"):
+        shipment["state"] = body["state"]
+
+    shipments[id] = shipment
+    return shipment
+
+
+@app.delete("/shipment")
+def delete_shipment(id: int) -> dict[str, Any]:
+    """Delete a shipment by its ID."""
+    shipments.pop(id)
+    return {"message": f"Shipment with ID #{id} deleted successfully"}
 
 
 @app.get("/scalar", include_in_schema=False)

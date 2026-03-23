@@ -15,6 +15,14 @@ repos:
       - id: detect-private-key
       - id: forbid-new-submodules
       - id: check-docstring-first
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    # Use the latest version or a specific one, e.g., rev: 0.1.0 (check the repo for the current rev)
+    rev: 0.10.12
+    hooks:
+      # Example hook to keep uv.lock in sync with pyproject.toml
+      - id: uv-lock
+      - id: uv-sync
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.5
     hooks:
