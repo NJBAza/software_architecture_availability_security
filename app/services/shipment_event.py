@@ -60,7 +60,6 @@ class ShipmentEventService(BaseService):
                 return f"scanned at {location}"
 
     async def _notify(self, shipment: Shipment, status: ShipmentStatus):
-        
         if status == ShipmentStatus.in_transit:
             return
 
@@ -70,14 +69,14 @@ class ShipmentEventService(BaseService):
 
         match status:
             case ShipmentStatus.placed:
-                subject="Your Order is Placed 🚛"
+                subject = "Your Order is Placed 🚛"
                 context["id"] = shipment.id
                 context["seller"] = shipment.seller.name
                 context["partner"] = shipment.delivery_partner.name
-                template_name="mail_placed.html"
+                template_name = "mail_placed.html"
 
             case ShipmentStatus.out_for_delivery:
-                subject="Your Order is Arriving Soon 🛵"
+                subject = "Your Order is Arriving Soon 🛵"
                 template_name = "mail_out_for_delivery.html"
 
                 code = randint(100_000, 999_999)
@@ -87,11 +86,10 @@ class ShipmentEventService(BaseService):
                     send_sms.delay(
                         to=shipment.client_contact_phone,
                         body=f"Your order is arriving soon! Share the {code} code with your "
-                        "delivery executive to receive your package."
+                        "delivery executive to receive your package.",
                     )
                 else:
                     context["verification_code"] = code
-
 
             case ShipmentStatus.delivered:
                 subject = "Your Order is Delivered ✅"

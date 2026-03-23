@@ -3,6 +3,7 @@ Name: software_architecture
 Version: 0.0.1
 Summary: Software Architecture
 Requires-Python: <3.12,>=3.11
+License-File: LICENSE
 Requires-Dist: fastapi[standard]==0.135.1
 Requires-Dist: ruff>=0.15.7
 Requires-Dist: scalar-fastapi>=1.8.1
@@ -17,3 +18,4 @@ Requires-Dist: delta-spark==3.3.0; extra == "test"
 Requires-Dist: pytest>=8.3.5; extra == "test"
 Requires-Dist: pytest-cov>=6.1.0; extra == "test"
 Requires-Dist: pydantic-settings>=2.8.1; extra == "test"
+Dynamic: license-file
