@@ -45,7 +45,7 @@ pythonpath = ["."]
 # convention = "sphinx"
 
 [tool.ruff]
-line-length = 120
+line-length = 99
 lint.select = [
     "F",   # pyflakes rules
     "E",   # pycodestyle error rules

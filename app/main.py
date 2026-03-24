@@ -44,7 +44,8 @@ def submit_shipment(data: dict[str, Any]) -> dict[str, Any]:
     state = data.get("state")
     if weight > 25 or weight <= 0:
         raise HTTPException(
-            status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Invalid weight. Must be between 0 kg and 25 kgs."
+            status_code=status.HTTP_406_NOT_ACCEPTABLE,
+            detail="Invalid weight. Must be between 0 kg and 25 kgs.",
         )
 
     new_id = max(shipments.keys()) + 1
@@ -68,19 +69,10 @@ def update_shipment(id: int, weight: float, content: str, state: str) -> dict[st
 
 @app.patch("/shipment")
 def patch_shipment(id: int, body: dict[str, Any]) -> dict[str, Any]:
-    """Partially update the details of a shipment by its ID."""
+    """Update the details of a shipment by its ID. Only the fields provided in the request body will be updated."""
     shipment = shipments[id]
 
     shipment.update(body)
-    return shipment
-    if body.get("content"):
-        shipment["content"] = body["content"]
-    if body.get("weight"):
-        shipment["weight"] = body["weight"]
-    if body.get("state"):
-        shipment["state"] = body["state"]
-
-    shipments[id] = shipment
     return shipment
 
 
