@@ -1,93 +1,86 @@
-from typing import Any
-
 from fastapi import FastAPI, HTTPException, status
+from fastapi.responses import Response
 from scalar_fastapi import get_scalar_api_reference
 
-from .schemas import Shipment, ShipmentState
+from .database import Database
+from .schemas import ShipmentCreate, ShipmentRead, ShipmentUpdate
 
 app = FastAPI()
 
+db = Database()
+db.connect_to_db()
+db.create_table()
+
+# In-memory shipments datastore
 shipments = {
-    73904: {"weight": 0.5, "content": "wine", "state": "arriving"},
-    73905: {"weight": 3.2, "content": "smartphones", "state": "in_transit"},
-    73906: {"weight": 7.8, "content": "garden tools", "state": "delivered"},
-    73907: {"weight": 0.9, "content": "cosmetics", "state": "placed"},
-    73908: {"weight": 15.0, "content": "industrial parts", "state": "out_for_delivery"},
-    73909: {"weight": 2.3, "content": "coffee beans", "state": "arriving"},
-    73910: {"weight": 18.7, "content": "sports equipment", "state": "in_transit"},
+    12701: {"weight": 8.2, "content": "aluminum sheets", "status": "placed", "destination": 11002},
+    12702: {"weight": 14.7, "content": "steel rods", "status": "shipped", "destination": 11003},
+    12703: {
+        "weight": 11.4,
+        "content": "copper wires",
+        "status": "delivered",
+        "destination": 11002,
+    },
+    12704: {
+        "weight": 17.8,
+        "content": "iron plates",
+        "status": "in transit",
+        "destination": 11005,
+    },
+    12705: {
+        "weight": 10.3,
+        "content": "brass fittings",
+        "status": "returned",
+        "destination": 11008,
+    },
 }
 
 
-@app.get("/shipment/latest")
-def get_last_shipment() -> dict[str, Any]:
-    """Get the details of the latest shipment."""
-    id = max(shipments.keys())
-    return shipments[id]
-
-
-@app.get("/shipment/", response_model=Shipment)
-def get_shipment(id: int = None, status_code: int = status.HTTP_200_OK) -> dict[str, Any]:
-    """Get the details of a shipment by its ID."""
-    if not id:
-        id = min(shipments.keys())
-        return shipments[id]
-
+@app.get("/shipment", response_model=ShipmentRead)
+def get_shipment(id: int) -> ShipmentRead:
+    """Retrieve a shipment by its ID."""
     if id not in shipments:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Shipment not found")
-
-    return shipments[id]
-
-
-@app.post("/shipment/")
-def submit_shipment(shipment: Shipment) -> dict[str, Any]:
-    """Create a new shipment with the given details."""
-    if shipment.weight > 25 or shipment.weight <= 0:
         raise HTTPException(
-            status_code=status.HTTP_406_NOT_ACCEPTABLE,
-            detail="Invalid weight. Must be between 0 kg and 25 kgs.",
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Given id doesn't exist!",
         )
-
-    new_id = max(shipments.keys()) + 1
-
-    shipments[new_id] = {
-        "weight": shipment.weight,
-        "content": shipment.content,
-        "state": shipment.state,
-    }
-    return {"id": new_id, "message": "Shipment created successfully"}
-
-
-@app.get("/shipment/{field}")
-def get_shipment_field(field: str, id: int) -> dict[str, Any]:
-    """Get the details of a shipment by a specific field and value."""
-    return {field: shipments[id][field]}
-
-
-# @app.put("/shipment")
-# def update_shipment(id: int, shipment: Shipment) -> dict[str, Any]:
-#     """Update the details of a shipment by its ID."""
-#     shipments[id] = {"weight": shipment.weight, "content": shipment.content, "state": shipment.state}
-#     return shipments[id]
-
-
-@app.patch("/shipment")
-def update_shipment(id: int, body: dict[str, ShipmentState]) -> dict[str, Any]:
-    """Update the details of a shipment by its ID. Only the fields provided in the request body will be updated."""
-    shipments[id].update(body)
     return shipments[id]
 
 
-@app.delete("/shipment")
-def delete_shipment(id: int) -> dict[str, Any]:
-    """Delete a shipment by its ID."""
-    shipments.pop(id)
-    return {"message": f"Shipment with ID #{id} deleted successfully"}
+@app.post("/shipment", response_model=None)
+def submit_shipment(shipment: ShipmentCreate) -> dict[str, int]:
+    """Create a new shipment.
+
+    Generates a new unique ID and stores the shipment in the in‑memory datastore.
+
+    """
+    new_id = db.create(shipment)
+    return {"id": new_id}
+
+
+@app.patch("/shipment", response_model=ShipmentRead)
+def update_shipment(id: int, shipment: ShipmentUpdate) -> ShipmentRead:
+    """Update an existing shipment."""
+    updated = db.update(id, shipment)
+    return updated
+
+
+@app.delete("/shipment", response_model=dict[str, str])
+def delete_shipment(id: int) -> dict[str, str]:
+    """Delete a shipment by ID."""
+    db.delete(id)
+    return {"detail": f"Shipment with id #{id} is deleted!"}
 
 
 @app.get("/scalar", include_in_schema=False)
-def get_scalar_docs() -> dict[str, Any]:
-    """Get the documentation for the scalar-fastapi package."""
+def get_scalar_docs() -> Response:
+    """Return Scalar API reference documentation.
+
+    Returns:
+        Response: Scalar API reference UI.
+
+    """
     return get_scalar_api_reference(
         openapi_url=app.openapi_url,
-        title="Scalar FastAPI API Reference",
+        title="Scalar API",
     )
