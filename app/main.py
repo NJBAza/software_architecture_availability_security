@@ -4,6 +4,7 @@ from scalar_fastapi import get_scalar_api_reference
 
 from .database import Database
 from .schemas import ShipmentCreate, ShipmentRead, ShipmentUpdate
+from app.services import IDS
 
 app = FastAPI()
 
@@ -35,6 +36,11 @@ shipments = {
     },
 }
 
+app.include_router(IDS.router)
+
+@app.get("/")
+def raiz():
+    return {"estado": "API funcionando"}
 
 @app.get("/shipment", response_model=ShipmentRead)
 def get_shipment(id: int) -> ShipmentRead:
