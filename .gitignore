@@ -154,3 +154,6 @@ profile_default/
 .spyproject
 
 site/
+
+.vscode
+.vscode/
