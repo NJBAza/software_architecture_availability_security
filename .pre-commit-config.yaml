@@ -1,0 +1,44 @@
+exclude: ^tests/resources/
+fail_fast: false  # <-- REQUIRED so pre-commit keeps running even when hooks fail
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-merge-conflict
+        pass_failing: true
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+        pass_failing: true
+      - id: check-json
+        pass_failing: true
+      - id: check-toml
+        pass_failing: true
+      - id: check-yaml
+        args: ["--unsafe"]
+        pass_failing: true
+      - id: end-of-file-fixer
+        pass_failing: true
+      - id: trailing-whitespace
+        pass_failing: true
+      - id: detect-private-key
+        pass_failing: true
+      - id: forbid-new-submodules
+        pass_failing: true
+      - id: check-docstring-first
+        pass_failing: true
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.10.12
+    hooks:
+      - id: uv-sync
+        pass_failing: true
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.5
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix, --show-fixes]
+        pass_failing: true
+      - id: ruff-format
+        pass_failing: true
