@@ -1,0 +1,68 @@
+services:
+  pgdatabase:
+    image: postgres:18
+    container_name: pgdatabase
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi
+    volumes:
+      - ny_taxi_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8085:80"
+    depends_on:
+      - pgdatabase
+
+  fastapi:
+    build: .
+    container_name: fastapi_app
+    depends_on:
+      - pgdatabase
+    environment:
+      DB_HOST: pgdatabase
+      DB_PORT: 5432
+      DB_NAME: ny_taxi
+      DB_USER: root
+      DB_PASSWORD: root
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+  ingest:
+    build: .
+    container_name: taxi_ingest
+    depends_on:
+      - pgdatabase
+    environment:
+      DB_HOST: pgdatabase
+      DB_PORT: 5432
+      DB_NAME: ny_taxi
+      DB_USER: root
+      DB_PASSWORD: root
+    volumes:
+      - ./data:/app/data
+    command: >
+      python ingest_data.py
+      --csv-file=/app/data/taxis.csv
+      --pg-user=root
+      --pg-pass=root
+      --pg-host=pgdatabase
+      --pg-port=5432
+      --pg-db=ny_taxi
+      --chunksize=50000
+      --target-table=taxis
+
+volumes:
+  ny_taxi_postgres_data:
+  pgadmin_data:
