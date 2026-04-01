@@ -1,15 +1,20 @@
 import os
 import uuid
+
 import httpx
 from fastapi import FastAPI
-from sqlalchemy import text
-from app.db import engine
 from fastapi.responses import Response
 from scalar_fastapi import get_scalar_api_reference
+from sqlalchemy import text
+
+from app.db import engine
+
 app = FastAPI()
 
 ORDERS_SERVICE_URL = os.getenv("ORDERS_SERVICE_URL", "http://orders_service:8000")
-RESERVATIONS_SERVICE_URL = os.getenv("RESERVATIONS_SERVICE_URL", "http://reservations_service:8000")
+RESERVATIONS_SERVICE_URL = os.getenv(
+    "RESERVATIONS_SERVICE_URL", "http://reservations_service:8000"
+)
 
 
 @app.get("/health")
@@ -48,7 +53,8 @@ async def reconcile():
         "anomalies_found": anomalies_found,
         "action_taken": action_taken,
     }
-    
+
+
 @app.get("/scalar", include_in_schema=False)
 def get_scalar_docs() -> Response:
     """Return Scalar API reference documentation.
