@@ -13,19 +13,20 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 
 @click.command()
-@click.option('--pg-user', default='root', help='PostgreSQL user')
-@click.option('--pg-pass', default='root', help='PostgreSQL password')
-@click.option('--pg-host', default='localhost', help='PostgreSQL host')
-@click.option('--pg-port', default=5432, type=int, help='PostgreSQL port')
-@click.option('--pg-db', default='ny_taxi', help='PostgreSQL database name')
-@click.option('--csv-file', required=True, help='Path to local CSV file')
-@click.option('--target-table', default='taxis', help='Target table name')
-@click.option('--chunksize', default=50000, type=int, help='Chunk size for reading CSV')
+@click.option("--pg-user", default="root", help="PostgreSQL user")
+@click.option("--pg-pass", default="root", help="PostgreSQL password")
+@click.option("--pg-host", default="localhost", help="PostgreSQL host")
+@click.option("--pg-port", default=5432, type=int, help="PostgreSQL port")
+@click.option("--pg-db", default="warehouse_reservations", help="PostgreSQL database name")
+@click.option("--csv-file", required=True, help="Path to local CSV file")
+@click.option("--target-table", required=True, help="Target table name")
+@click.option("--chunksize", default=50, type=int, help="Chunk size for reading CSV")
+
 def run(pg_user, pg_pass, pg_host, pg_port, pg_db, csv_file, target_table, chunksize):
     """Ingest local CSV data into PostgreSQL database."""
 
     engine = create_engine(
-        f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}'
+        f'postgresql+psycopg2://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}'
     )
 
     df_iter = pd.read_csv(

@@ -1,11 +1,15 @@
 FROM python:3.13-slim
 
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+ENV PATH="/app/.venv/bin:$PATH"
 
-COPY ingest_data.py .
-COPY app ./app
+COPY pyproject.toml uv.lock ./
+RUN uv sync --locked --no-dev
 
-EXPOSE 8000
+COPY ingest_data.py ./
+COPY version.txt ./
+
+ENTRYPOINT ["python", "ingest_data.py"]

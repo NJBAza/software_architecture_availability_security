@@ -5,9 +5,9 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: ny_taxi
+      POSTGRES_DB: warehouse_reservations
     volumes:
-      - ny_taxi_postgres_data:/var/lib/postgresql/data
+      - warehouse_reservations_postgres_data:/var/lib/postgresql
     ports:
       - "5432:5432"
 
@@ -24,45 +24,6 @@ services:
     depends_on:
       - pgdatabase
 
-  fastapi:
-    build: .
-    container_name: fastapi_app
-    depends_on:
-      - pgdatabase
-    environment:
-      DB_HOST: pgdatabase
-      DB_PORT: 5432
-      DB_NAME: ny_taxi
-      DB_USER: root
-      DB_PASSWORD: root
-    ports:
-      - "8000:8000"
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
-
-  ingest:
-    build: .
-    container_name: taxi_ingest
-    depends_on:
-      - pgdatabase
-    environment:
-      DB_HOST: pgdatabase
-      DB_PORT: 5432
-      DB_NAME: ny_taxi
-      DB_USER: root
-      DB_PASSWORD: root
-    volumes:
-      - ./data:/app/data
-    command: >
-      python ingest_data.py
-      --csv-file=/app/data/taxis.csv
-      --pg-user=root
-      --pg-pass=root
-      --pg-host=pgdatabase
-      --pg-port=5432
-      --pg-db=ny_taxi
-      --chunksize=50000
-      --target-table=taxis
-
 volumes:
-  ny_taxi_postgres_data:
+  warehouse_reservations_postgres_data:
   pgadmin_data:
