@@ -1,15 +1,87 @@
 services:
-  pgdatabase:
+  orders_db:
     image: postgres:18
-    container_name: pgdatabase
+    container_name: orders_db
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: warehouse_reservations
+      POSTGRES_DB: orders_db
     volumes:
-      - warehouse_reservations_postgres_data:/var/lib/postgresql
+      - orders_postgres_data:/var/lib/postgresql
     ports:
-      - "5432:5432"
+      - "5433:5432"
+
+  reservations_db:
+    image: postgres:18
+    container_name: reservations_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: reservations_db
+    volumes:
+      - reservations_postgres_data:/var/lib/postgresql
+    ports:
+      - "5434:5432"
+
+  conciliator_db:
+    image: postgres:18
+    container_name: conciliator_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: conciliator_db
+    volumes:
+      - conciliator_postgres_data:/var/lib/postgresql
+    ports:
+      - "5435:5432"
+
+  orders_service:
+    build: ./orders_service
+    container_name: orders_service
+    environment:
+      DB_HOST: orders_db
+      DB_PORT: 5432
+      DB_NAME: orders_db
+      DB_USER: root
+      DB_PASSWORD: root
+      RESERVATIONS_SERVICE_URL: http://reservations_service:8000
+    depends_on:
+      - orders_db
+      - reservations_service
+    ports:
+      - "8001:8000"
+
+  reservations_service:
+    build: ./reservations_service
+    container_name: reservations_service
+    environment:
+      DB_HOST: reservations_db
+      DB_PORT: 5432
+      DB_NAME: reservations_db
+      DB_USER: root
+      DB_PASSWORD: root
+    depends_on:
+      - reservations_db
+    ports:
+      - "8002:8000"
+
+  conciliator_service:
+    build: ./conciliator_service
+    container_name: conciliator_service
+    environment:
+      DB_HOST: conciliator_db
+      DB_PORT: 5432
+      DB_NAME: conciliator_db
+      DB_USER: root
+      DB_PASSWORD: root
+      ORDERS_SERVICE_URL: http://orders_service:8000
+      RESERVATIONS_SERVICE_URL: http://reservations_service:8000
+    depends_on:
+      - conciliator_db
+      - orders_service
+      - reservations_service
+    ports:
+      - "8003:8000"
 
   pgadmin:
     image: dpage/pgadmin4
@@ -22,8 +94,12 @@ services:
     ports:
       - "8085:80"
     depends_on:
-      - pgdatabase
+      - orders_db
+      - reservations_db
+      - conciliator_db
 
 volumes:
-  warehouse_reservations_postgres_data:
+  orders_postgres_data:
+  reservations_postgres_data:
+  conciliator_postgres_data:
   pgadmin_data:

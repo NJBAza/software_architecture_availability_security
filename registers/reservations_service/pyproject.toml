@@ -1,0 +1,79 @@
+[project]
+name = "software_architecture"
+description = "Software Architecture"
+requires-python = ">=3.11, <3.12"
+dependencies = [
+    "fastapi[standard]==0.135.1",
+    "pandas>=3.0.2",
+    "pgcli>=4.4.0",
+    "psycopg2-binary>=2.9.11",
+    "pyarrow>=23.0.1",
+    "ruff>=0.15.7",
+    "scalar-fastapi>=1.8.1",
+    "sqlalchemy>=2.0.48",
+    "tqdm>=4.67.3",
+]
+
+dynamic = ['version']
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel>=6.29.5, <7",
+    "pip>=24.2",
+    "pre-commit>=4.1.0, <5",
+    "pytest>=8.3.4, <9",
+]
+
+test = [
+    "pre-commit>=4.1.0, <5",
+    "delta-spark==3.3.0",
+    "pytest>=8.3.5",
+    "pytest-cov >=6.1.0",
+    "pydantic-settings>=2.8.1",
+]
+
+[build-system]
+requires = ["setuptools>=72.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+
+[tool.setuptools.dynamic]
+version = { file = "version.txt" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+# [lint.pydocstyle]
+# convention = "sphinx"
+
+[tool.ruff]
+line-length = 99
+lint.select = [
+    "F",   # pyflakes rules
+    "E",   # pycodestyle error rules
+    "W",   # pycodestyle warning rules
+    "B",   # flake8-bugbear rules
+    "I",   # isort rules
+    "UP",  # pyupgrade rules
+    "SIM", # flake8-simplify rules
+    "ERA", # eradicate rules
+    "C",   # pylint convention rules
+    "D",   # pydocstyle rules
+    "ANN", # flake8-annotations rules
+]
+lint.ignore = [
+    "D107",   # Missing docstring in `__init__`
+    "D203",   # incorrect-blank-line-before-class
+    "D213",   # multi-line-summary-second-line
+    "E501",   # line-too-long
+    "C901",   # too complex
+    "ERA001", # commented out code
+    "D100",   # missing docstring
+    "ERA001", # commented out code
+]
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
