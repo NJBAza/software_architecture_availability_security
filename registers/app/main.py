@@ -1,4 +1,5 @@
 import os
+
 from fastapi import FastAPI
 from sqlalchemy import create_engine, text
 
@@ -44,8 +45,4 @@ def taxis_preview(limit: int = 10):
     with engine.connect() as conn:
         result = conn.execute(query)
         rows = [dict(row._mapping) for row in result]
-    return {
-        "table": "taxis",
-        "limit": limit,
-        "rows": rows
-    }
+    return {"table": "taxis", "limit": limit, "rows": rows}

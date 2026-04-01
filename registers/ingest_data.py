@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 
 import click
 import pandas as pd
@@ -21,12 +20,10 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
 @click.option("--csv-file", required=True, help="Path to local CSV file")
 @click.option("--target-table", required=True, help="Target table name")
 @click.option("--chunksize", default=50, type=int, help="Chunk size for reading CSV")
-
 def run(pg_user, pg_pass, pg_host, pg_port, pg_db, csv_file, target_table, chunksize):
     """Ingest local CSV data into PostgreSQL database."""
-
     engine = create_engine(
-        f'postgresql+psycopg2://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}'
+        f"postgresql+psycopg2://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}"
     )
 
     df_iter = pd.read_csv(
@@ -44,19 +41,11 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, csv_file, target_table, chunk
 
         if first:
             df_chunk.head(0).to_sql(
-                name=target_table,
-                con=engine,
-                if_exists='replace',
-                index=False
+                name=target_table, con=engine, if_exists="replace", index=False
             )
             first = False
 
-        df_chunk.to_sql(
-            name=target_table,
-            con=engine,
-            if_exists='append',
-            index=False
-        )
+        df_chunk.to_sql(name=target_table, con=engine, if_exists="append", index=False)
 
         total_rows += len(df_chunk)
 
@@ -64,10 +53,10 @@ def run(pg_user, pg_pass, pg_host, pg_port, pg_db, csv_file, target_table, chunk
         result = conn.execute(text(f"SELECT COUNT(*) FROM {target_table}"))
         count_in_db = result.scalar()
 
-    print(f"Finished ingestion.")
+    print("Finished ingestion.")
     print(f"Rows loaded from CSV: {total_rows}")
     print(f"Rows in database table '{target_table}': {count_in_db}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

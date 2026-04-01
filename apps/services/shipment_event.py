@@ -95,7 +95,9 @@ class ShipmentEventService(BaseService):
                 subject = "Your Order is Delivered ✅"
                 context["seller"] = shipment.seller.name
                 token = generate_url_safe_token({"id": str(shipment.id)})
-                context["review_url"] = f"http://{app_settings.APP_DOMAIN}/shipment/review?token={token}"
+                context["review_url"] = (
+                    f"http://{app_settings.APP_DOMAIN}/shipment/review?token={token}"
+                )
                 template_name = "mail_delivered.html"
 
             case ShipmentStatus.cancelled:
