@@ -67,9 +67,9 @@ cd conciliator_service && uv lock && cd ..
 ## 2. Start databases
 
 ```bash
-docker-compose down -v --remove-orphans
-docker-compose up -d orders_db reservations_db conciliator_db pgadmin
-docker-compose ps
+docker compose down -v --remove-orphans
+docker compose up -d orders_db reservations_db conciliator_db pgadmin
+docker compose ps
 ```
 
 ---
@@ -119,8 +119,8 @@ docker run --rm --network=registers_default -v "$(pwd)/data:/app/data" registers
 ## 5. Start FastAPI services
 
 ```bash
-docker-compose up -d --build orders_service reservations_service conciliator_service
-docker-compose ps
+docker compose up -d --build orders_service reservations_service conciliator_service
+docker compose ps
 ```
 
 ---
@@ -134,6 +134,14 @@ docker-compose ps
 | Conciliator API   | http://localhost:8003     |
 | pgAdmin           | http://localhost:8085     |
 
+---
+
+# Local verifications to observe status of the services
+```bash
+curl http://localhost:8001/health          
+curl http://localhost:8002/health                                    
+curl http://localhost:8003/health
+```
 ---
 
 # API Documentation (Scalar)
@@ -196,19 +204,19 @@ curl -X POST http://localhost:8003/conciliator/reconcile
 ### Services not running
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Check logs
 
 ```bash
-docker-compose logs -f orders_service
+docker compose logs -f orders_service
 ```
 
 ### Reset environment (deletes data)
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
 ---
