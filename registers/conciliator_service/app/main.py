@@ -1,7 +1,7 @@
 import os
-import httpx
 from datetime import UTC, datetime
 
+import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import Response
 from scalar_fastapi import get_scalar_api_reference
@@ -12,19 +12,25 @@ from app.db import engine
 app = FastAPI()
 
 ORDERS_SERVICE_URL = os.getenv("ORDERS_SERVICE_URL", "http://orders_service:8000")
-RESERVATIONS_SERVICE_URL = os.getenv("RESERVATIONS_SERVICE_URL", "http://reservations_service:8000")
+RESERVATIONS_SERVICE_URL = os.getenv(
+    "RESERVATIONS_SERVICE_URL", "http://reservations_service:8000"
+)
 
 
 def next_run_id(conn) -> str:
-    row = conn.execute(
-        text("""
+    row = (
+        conn.execute(
+            text("""
             SELECT run_id
             FROM reconciliation_runs
             WHERE run_id ~ '^RUN[0-9]+$'
             ORDER BY CAST(SUBSTRING(run_id FROM 4) AS INTEGER) DESC
             LIMIT 1
         """)
-    ).mappings().first()
+        )
+        .mappings()
+        .first()
+    )
 
     if not row:
         return "RUN00001"
@@ -130,13 +136,17 @@ async def reconcile():
 @app.get("/conciliator/runs")
 def get_runs():
     with engine.begin() as conn:
-        rows = conn.execute(
-            text("""
+        rows = (
+            conn.execute(
+                text("""
                 SELECT *
                 FROM reconciliation_runs
                 ORDER BY executed_at DESC
             """)
-        ).mappings().all()
+            )
+            .mappings()
+            .all()
+        )
     return rows
 
 
