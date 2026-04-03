@@ -1,9 +1,0 @@
-LICENSE
-README.md
-pyproject.toml
-version.txt
-src/software_architecture.egg-info/PKG-INFO
-src/software_architecture.egg-info/SOURCES.txt
-src/software_architecture.egg-info/dependency_links.txt
-src/software_architecture.egg-info/requires.txt
-src/software_architecture.egg-info/top_level.txt
