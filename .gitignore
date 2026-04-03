@@ -154,6 +154,12 @@ profile_default/
 .spyproject
 
 site/
+<<<<<<< HEAD
 scripts/ids_postgres_schema.sql
 scripts/ids_postgres_seed.sql
 plan_pruebas_reto2.txt
+=======
+
+.vscode
+.vscode/
+>>>>>>> f1d26de6c205283a06b702c85c55f20d54731921
