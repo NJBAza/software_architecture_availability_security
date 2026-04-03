@@ -1,16 +1,17 @@
 import os
+
 import httpx
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from sqlalchemy import text
-from app.db import engine
 from fastapi.responses import Response
+from pydantic import BaseModel
 from scalar_fastapi import get_scalar_api_reference
+from sqlalchemy import text
+
+from app.db import engine
 
 app = FastAPI()
 RESERVATIONS_SERVICE_URL = os.getenv(
-    "RESERVATIONS_SERVICE_URL",
-    "http://reservations_service:8000"
+    "RESERVATIONS_SERVICE_URL", "http://reservations_service:8000"
 )
 
 
@@ -30,8 +31,9 @@ def health():
 @app.post("/orders")
 async def create_order(payload: CreateOrderRequest):
     with engine.begin() as conn:
-        row = conn.execute(
-            text("""
+        row = (
+            conn.execute(
+                text("""
                 INSERT INTO sales_orders (
                     seller_id,
                     store_id,
@@ -46,13 +48,16 @@ async def create_order(payload: CreateOrderRequest):
                 )
                 RETURNING order_id, created_at
             """),
-            {
-                "seller_id": payload.seller_id,
-                "store_id": payload.store_id,
-                "total_amount": payload.total_amount,
-            },
-        ).mappings().first()
-        
+                {
+                    "seller_id": payload.seller_id,
+                    "store_id": payload.store_id,
+                    "total_amount": payload.total_amount,
+                },
+            )
+            .mappings()
+            .first()
+        )
+
         order_id = row["order_id"]
         created_at = row["created_at"]
 
@@ -117,41 +122,53 @@ async def create_order(payload: CreateOrderRequest):
 @app.get("/orders/pending")
 def get_pending_orders():
     with engine.begin() as conn:
-        rows = conn.execute(
-            text("""
+        rows = (
+            conn.execute(
+                text("""
                 SELECT *
                 FROM sales_orders
                 WHERE status = 'PENDING'
                 ORDER BY created_at DESC
             """)
-        ).mappings().all()
+            )
+            .mappings()
+            .all()
+        )
     return rows
 
 
 @app.get("/orders")
 def get_orders():
     with engine.begin() as conn:
-        rows = conn.execute(
-            text("""
+        rows = (
+            conn.execute(
+                text("""
                 SELECT *
                 FROM sales_orders
                 ORDER BY created_at DESC
             """)
-        ).mappings().all()
+            )
+            .mappings()
+            .all()
+        )
     return rows
 
 
 @app.get("/orders/{order_id}")
 def get_order(order_id: str):
     with engine.begin() as conn:
-        row = conn.execute(
-            text("""
+        row = (
+            conn.execute(
+                text("""
                 SELECT *
                 FROM sales_orders
                 WHERE order_id = :order_id
             """),
-            {"order_id": order_id},
-        ).mappings().first()
+                {"order_id": order_id},
+            )
+            .mappings()
+            .first()
+        )
 
     if not row:
         raise HTTPException(status_code=404, detail="Order not found")

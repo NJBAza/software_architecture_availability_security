@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import re
+
 import click
 import pandas as pd
 from sqlalchemy import create_engine, text
@@ -45,7 +46,8 @@ def pk_exists(conn, table_name: str) -> bool:
 
 
 def sync_sales_orders_sequence(conn):
-    conn.execute(text("""
+    conn.execute(
+        text("""
         SELECT setval(
             'sales_orders_seq',
             GREATEST(
@@ -66,55 +68,72 @@ def sync_sales_orders_sequence(conn):
             ),
             true
         )
-    """))
+    """)
+    )
 
 
 def apply_sales_orders_metadata(conn):
-    conn.execute(text("""
+    conn.execute(
+        text("""
         CREATE SEQUENCE IF NOT EXISTS sales_orders_seq START 1
-    """))
+    """)
+    )
 
     if column_exists(conn, "sales_orders", "order_id"):
-        conn.execute(text("""
+        conn.execute(
+            text("""
             ALTER TABLE sales_orders
             ALTER COLUMN order_id SET DEFAULT
             'ORD' || LPAD(nextval('sales_orders_seq')::TEXT, 6, '0')
-        """))
-        conn.execute(text("""
+        """)
+        )
+        conn.execute(
+            text("""
             ALTER TABLE sales_orders
             ALTER COLUMN order_id SET NOT NULL
-        """))
+        """)
+        )
 
     if column_exists(conn, "sales_orders", "created_at"):
-        conn.execute(text("""
+        conn.execute(
+            text("""
             ALTER TABLE sales_orders
             ALTER COLUMN created_at SET DEFAULT CURRENT_TIMESTAMP
-        """))
-        conn.execute(text("""
+        """)
+        )
+        conn.execute(
+            text("""
             ALTER TABLE sales_orders
             ALTER COLUMN created_at SET NOT NULL
-        """))
+        """)
+        )
 
     # fill only missing values, preserving CSV-provided values
-    conn.execute(text("""
+    conn.execute(
+        text("""
         UPDATE sales_orders
         SET order_id = 'ORD' || LPAD(nextval('sales_orders_seq')::TEXT, 6, '0')
         WHERE order_id IS NULL
-    """))
+    """)
+    )
 
-    conn.execute(text("""
+    conn.execute(
+        text("""
         UPDATE sales_orders
         SET created_at = CURRENT_TIMESTAMP
         WHERE created_at IS NULL
-    """))
+    """)
+    )
 
     sync_sales_orders_sequence(conn)
 
     if not pk_exists(conn, "sales_orders"):
-        conn.execute(text("""
+        conn.execute(
+            text("""
             ALTER TABLE sales_orders
             ADD CONSTRAINT sales_orders_pk PRIMARY KEY (order_id)
-        """))
+        """)
+        )
 
 
 @click.command()

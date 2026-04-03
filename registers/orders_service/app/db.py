@@ -1,4 +1,5 @@
 import os
+
 from sqlalchemy import create_engine
 
 DB_USER = os.getenv("DB_USER", "root")
