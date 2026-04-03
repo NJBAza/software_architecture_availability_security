@@ -13,12 +13,12 @@ This project implements a **microservices-based architecture** using:
 
 # Architecture Overview
 
-Client → Orders Service → Reservations Service  
-                     ↘ Conciliator Service  
+Client → Orders Service → Reservations Service
+                     ↘ Conciliator Service
 
-- **Orders Service**: handles order lifecycle  
-- **Reservations Service**: handles stock and concurrency  
-- **Conciliator Service**: detects inconsistencies  
+- **Orders Service**: handles order lifecycle
+- **Reservations Service**: handles stock and concurrency
+- **Conciliator Service**: detects inconsistencies
 
 ---
 
@@ -138,8 +138,8 @@ docker compose ps
 
 # Local verifications to observe status of the services
 ```bash
-curl http://localhost:8001/health          
-curl http://localhost:8002/health                                    
+curl http://localhost:8001/health
+curl http://localhost:8002/health
 curl http://localhost:8003/health
 ```
 ---
@@ -148,9 +148,9 @@ curl http://localhost:8003/health
 
 Each service exposes Scalar UI:
 
-- Orders → http://localhost:8001/scalar  
-- Reservations → http://localhost:8002/scalar  
-- Conciliator → http://localhost:8003/scalar  
+- Orders → http://localhost:8001/scalar
+- Reservations → http://localhost:8002/scalar
+- Conciliator → http://localhost:8003/scalar
 
 ---
 
@@ -158,9 +158,9 @@ Each service exposes Scalar UI:
 
 Services communicate via HTTP using Docker service names:
 
-- orders_service → reservations_service  
-- conciliator_service → orders_service  
-- conciliator_service → reservations_service  
+- orders_service → reservations_service
+- conciliator_service → orders_service
+- conciliator_service → reservations_service
 
 ---
 
