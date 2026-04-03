@@ -4,7 +4,7 @@ from scalar_fastapi import get_scalar_api_reference
 
 from .database import Database
 from .schemas import ShipmentCreate, ShipmentRead, ShipmentUpdate
-from app.services import IDS
+from apps.services import IDS
 
 app = FastAPI()
 
