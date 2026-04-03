@@ -154,3 +154,6 @@ profile_default/
 .spyproject
 
 site/
+scripts/ids_postgres_schema.sql
+scripts/ids_postgres_seed.sql
+plan_pruebas_reto2.txt
