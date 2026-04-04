@@ -213,6 +213,23 @@ docker compose up -d
 docker compose logs -f orders_service
 ```
 
+### Pruebas G nuevas (escalado y rollback)
+
+Desde la raíz del repositorio:
+
+```bash
+python scripts/disponibilidad/prepare_g_test_data.py --validate-only
+python scripts/disponibilidad/run_all.py --solo G_escalado_tiempo_respuesta
+python scripts/disponibilidad/run_all.py --solo G_rollback_carga
+python scripts/disponibilidad/run_all.py --solo G_rollback_carga_10pct_parejas
+python scripts/disponibilidad/run_all.py --solo G_rollback_carga_1pct
+python scripts/disponibilidad/run_all.py --solo G_latencia_escalonada
+python scripts/disponibilidad/run_all.py --solo G_estocastico
+```
+
+Resultados y documentación por escenario en `registers/data/test/`.
+Todas las gráficas se guardan en `registers/data/test/results/plots`.
+
 ### Reset environment (deletes data)
 
 ```bash
@@ -223,7 +240,7 @@ docker compose down -v
 
 # Summary
 
-This project demonstrates:
+This project demostrates:
 
 - Microservices architecture
 - Data isolation per service

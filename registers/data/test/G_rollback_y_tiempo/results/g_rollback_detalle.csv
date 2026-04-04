@@ -1,0 +1,3 @@
+timestamp_utc,escenario,order_id,stock_id,http_status,duracion_ms
+2026-04-04T16:12:41.843584+00:00,g_rollback_tiempo,ORD-TST-59e70d44957e,STK00001,-1,39.06
+2026-04-04T16:12:41.843584+00:00,g_rollback_tiempo,ORD-TST-16ede7ad6ed8,STK00001,-1,25.57

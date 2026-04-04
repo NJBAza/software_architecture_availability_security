@@ -1,0 +1,5 @@
+timestamp_utc,fase,metrica,valor,detalle
+2026-04-04T01:43:12.991036+00:00,carga_fondo,health_ok,600,peticiones_health_totales=600 solapadas_con_2_reservas
+2026-04-04T01:43:12.992370+00:00,carga_fondo,health_err,0,
+2026-04-04T01:43:12.994681+00:00,reserva_conflictiva,http_409,16.78,"order_id=ORD-TST-e2059e0fb83e {""detail"":""Insufficient stock""}"
+2026-04-04T01:43:12.995840+00:00,reserva_conflictiva,http_409,6.78,"order_id=ORD-TST-ffa46075661a {""detail"":""Insufficient stock""}"

@@ -1,0 +1,45 @@
+timestamp_utc,archivo,linea,categoria,detalle
+2026-04-04T00:43:53.284362+00:00,apps/services/IDS.py,59,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T00:43:53.284362+00:00,apps/services/IDS.py,67,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T00:43:53.284362+00:00,apps/services/IDS.py,69,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T00:43:53.284362+00:00,apps/services/IDS.py,0,resumen,lineas_execute=3 categorias={'parametrizada'}
+2026-04-04T00:43:53.285488+00:00,apps/database.py,33,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,54,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,60,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,85,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,120,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,142,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T00:43:53.285488+00:00,apps/database.py,0,resumen,lineas_execute=6 categorias={'revisar'}
+2026-04-04T01:43:06.127843+00:00,apps/services/IDS.py,59,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T01:43:06.127843+00:00,apps/services/IDS.py,67,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T01:43:06.127843+00:00,apps/services/IDS.py,69,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T01:43:06.127843+00:00,apps/services/IDS.py,0,resumen,lineas_execute=3 categorias={'parametrizada'}
+2026-04-04T01:43:06.127843+00:00,apps/database.py,33,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,54,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,60,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,85,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,120,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,142,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T01:43:06.127843+00:00,apps/database.py,0,resumen,lineas_execute=6 categorias={'revisar'}
+2026-04-04T15:55:34.673019+00:00,apps/services/IDS.py,59,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:55:34.673019+00:00,apps/services/IDS.py,67,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:55:34.673019+00:00,apps/services/IDS.py,69,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:55:34.673019+00:00,apps/services/IDS.py,0,resumen,lineas_execute=3 categorias={'parametrizada'}
+2026-04-04T15:55:34.673019+00:00,apps/database.py,33,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,54,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,60,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,85,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,120,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,142,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:55:34.673019+00:00,apps/database.py,0,resumen,lineas_execute=6 categorias={'revisar'}
+2026-04-04T15:59:52.995084+00:00,apps/services/IDS.py,59,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:59:52.995084+00:00,apps/services/IDS.py,67,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:59:52.995084+00:00,apps/services/IDS.py,69,parametrizada,"Placeholders %s, :named o ? detectados cerca de execute."
+2026-04-04T15:59:52.995084+00:00,apps/services/IDS.py,0,resumen,lineas_execute=3 categorias={'parametrizada'}
+2026-04-04T15:59:52.996048+00:00,apps/database.py,33,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,54,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,60,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,85,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,120,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,142,revisar,execute sin placeholder obvio en ventana local; revisar query multilínea.
+2026-04-04T15:59:52.996048+00:00,apps/database.py,0,resumen,lineas_execute=6 categorias={'revisar'}

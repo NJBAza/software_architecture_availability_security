@@ -1,0 +1,1 @@
+timestamp_utc,escenario,users,total_requests,conflict_requests,success,errors,error_pct,avg_ms,p95_ms,max_ms,avg_ms_per_user,rollback_409_count,duracion_s,stop_reason

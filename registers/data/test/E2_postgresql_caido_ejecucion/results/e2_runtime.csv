@@ -1,0 +1,4 @@
+timestamp_utc,base_url,http_status_o_error,duracion_ms,notas
+2026-04-04T01:42:45.519287+00:00,http://127.0.0.1:8000,ConnectError,2169.14,[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+2026-04-04T15:55:14.059960+00:00,http://127.0.0.1:8000,ConnectError,2115.57,[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+2026-04-04T15:59:32.287574+00:00,http://127.0.0.1:8000,ConnectError,2094.42,[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión

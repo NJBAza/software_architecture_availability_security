@@ -3,6 +3,7 @@ name = "software_architecture"
 description = "Software Architecture"
 requires-python = ">=3.11, <3.12"
 dependencies = [
+    "httpx>=0.28.0",
     "fastapi[standard]==0.135.1",
     "pandas>=3.0.2",
     "pgcli>=4.4.0",
