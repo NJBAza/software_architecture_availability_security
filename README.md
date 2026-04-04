@@ -15,10 +15,12 @@ This project implements a **microservices-based architecture** using:
 
 Client → Orders Service → Reservations Service
                      ↘ Conciliator Service
+Traffic/Auth Events  → IDS Service
 
 - **Orders Service**: handles order lifecycle
 - **Reservations Service**: handles stock and concurrency
 - **Conciliator Service**: detects inconsistencies
+- **IDS Service**: (Intrusion Detection System) detects post-login anomalies like impossible geo-velocity and unusual device fingerprints.
 
 ---
 
@@ -32,11 +34,15 @@ registers/
 │   ├── reservations.csv
 │   ├── sales_orders.csv
 │   ├── order_items.csv
-│   └── reconciliation_runs.csv
+│   ├─── reconciliation_runs.csv
+│   ├── usuario.csv
+│   ├── perfile_seguridad_usuario.csv
+│   └── dispositivo_usuario.csv
 ├── ingest/
 ├── orders_service/
 ├── reservations_service/
-└── conciliator_service/
+├── conciliator_service/
+└── ids_service/
 ```
 
 ---
@@ -60,6 +66,7 @@ cd ingest && uv lock && cd ..
 cd orders_service && uv lock && cd ..
 cd reservations_service && uv lock && cd ..
 cd conciliator_service && uv lock && cd ..
+cd ids_service && uv lock && cd ..
 ```
 
 ---
@@ -68,7 +75,7 @@ cd conciliator_service && uv lock && cd ..
 
 ```bash
 docker compose down -v --remove-orphans
-docker compose up -d orders_db reservations_db conciliator_db pgadmin
+docker compose up -d orders_db reservations_db conciliator_db ids_db pgadmin
 docker compose ps
 ```
 
@@ -116,10 +123,19 @@ docker run --rm --network=registers_default -v "$(pwd)/data:/app/data" registers
 
 ---
 
+### IDS DB
+
+```bash
+docker run --rm --network=registers_default -v "$(pwd)/data:/app/data" registers_ingest:v1 --csv-file=/app/data/usuario.csv --pg-user=root --pg-pass=root --pg-host=ids_db --pg-db=ids_db --target-table=usuario
+docker run --rm --network=registers_default -v "$(pwd)/data:/app/data" registers_ingest:v1 --csv-file=/app/data/perfile_seguridad_usuario.csv --pg-user=root --pg-pass=root --pg-host=ids_db --pg-db=ids_db --target-table=perfile_seguridad_usuario
+docker run --rm --network=registers_default -v "$(pwd)/data:/app/data" registers_ingest:v1 --csv-file=/app/data/dispositivo_usuario.csv --pg-user=root --pg-pass=root --pg-host=ids_db --pg-db=ids_db --target-table=dispositivo_usuario
+```
+---
+
 ## 5. Start FastAPI services
 
 ```bash
-docker compose up -d --build orders_service reservations_service conciliator_service
+docker compose up -d --build orders_service reservations_service conciliator_service ids_service
 docker compose ps
 ```
 
@@ -127,11 +143,12 @@ docker compose ps
 
 # Access Services
 
-| Service            | URL                        |
-|------------------|---------------------------|
+| Service           | URL                       |
+|-------------------|---------------------------|
 | Orders API        | http://localhost:8001     |
 | Reservations API  | http://localhost:8002     |
 | Conciliator API   | http://localhost:8003     |
+| IDS API           | http://localhost:8004     |
 | pgAdmin           | http://localhost:8085     |
 
 ---
@@ -141,6 +158,7 @@ docker compose ps
 curl http://localhost:8001/health
 curl http://localhost:8002/health
 curl http://localhost:8003/health
+curl http://localhost:8004/health
 ```
 ---
 
@@ -151,6 +169,7 @@ Each service exposes Scalar UI:
 - Orders → http://localhost:8001/scalar
 - Reservations → http://localhost:8002/scalar
 - Conciliator → http://localhost:8003/scalar
+- IDS → http://localhost:8005/scala
 
 ---
 
