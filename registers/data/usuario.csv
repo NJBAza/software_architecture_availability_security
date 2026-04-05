@@ -1,0 +1,2 @@
+id,nombre,correo,contrasena,estado
+1,miguel,miguel@test.com,hash_falso_123,ACTIVO

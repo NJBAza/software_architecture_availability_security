@@ -78,3 +78,8 @@ lint.ignore = [
 [tool.ruff.format]
 indent-style = "space"
 docstring-code-format = true
+
+[tool.uv.workspace]
+members = [
+    "registers/ids_service",
+]
