@@ -63,7 +63,12 @@ def obtener_linea_base_usuario(cursor, id_usuario: int):
         FROM perfile_seguridad_usuario p
         LEFT JOIN dispositivo_usuario d ON p.id_usuario = d.id_usuario
         WHERE p.id_usuario = %s
-        GROUP BY p.id_usuario;
+        GROUP BY 
+            p.id_usuario, 
+            p.latitud, 
+            p.longitud, 
+            p.inicio_sesion, 
+            p.promedio_pxm;
     """
     cursor.execute(query, (id_usuario,))
     return cursor.fetchone()
@@ -104,6 +109,12 @@ def detectar_intrusion(
         lat_hist = float(lat_hist)
         lon_hist = float(lon_hist)
         promedio_pxm = float(promedio_pxm) if promedio_pxm else 0.0
+
+        if isinstance(inicio_sesion, str):
+            inicio_sesion = datetime.fromisoformat(inicio_sesion)
+        
+        if inicio_sesion.tzinfo is None:
+            inicio_sesion = inicio_sesion.replace(tzinfo=timezone.utc)
 
         if dispositivos_conocidos is None: dispositivos_conocidos = []
         

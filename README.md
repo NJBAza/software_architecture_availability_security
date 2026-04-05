@@ -169,7 +169,7 @@ Each service exposes Scalar UI:
 - Orders → http://localhost:8001/scalar
 - Reservations → http://localhost:8002/scalar
 - Conciliator → http://localhost:8003/scalar
-- IDS → http://localhost:8005/scala
+- IDS → http://localhost:8004/scala
 
 ---
 
