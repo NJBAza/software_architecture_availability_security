@@ -1,1 +1,4 @@
 timestamp_utc,escenario,condiciones,nivel,total,detecciones_correctas,deteccion_correcta_pct,falsos_positivos,avg_ms,p95_ms,max_ms,en_menos_300ms,en_menos_300ms_pct
+2026-04-06T05:14:39.303823+00:00,deteccion_2_condiciones,geo+dispositivo,10,10,0,0.00,0,2062.79,2073.59,2074.38,0,0.00
+2026-04-06T05:14:41.568893+00:00,deteccion_2_condiciones,geo+dispositivo,100,100,0,0.00,0,2073.10,2094.85,2104.24,0,0.00
+2026-04-06T05:14:52.922787+00:00,deteccion_2_condiciones,geo+dispositivo,1000,1000,0,0.00,0,2090.27,2150.88,2311.99,0,0.00

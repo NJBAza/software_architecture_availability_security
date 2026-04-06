@@ -34,6 +34,18 @@ services:
       - conciliator_postgres_data:/var/lib/postgresql
     ports:
       - "5435:5432"
+  
+  ids_db:
+    image: postgres:18
+    container_name: ids_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ids_db
+    volumes:
+      - ids_postgres_data:/var/lib/postgresql
+    ports:
+      - "5431:5432"
 
   orders_service:
     build: ./orders_service
@@ -83,6 +95,20 @@ services:
     ports:
       - "8003:8000"
 
+  ids_service:
+    build: ./ids_service
+    container_name: ids_service
+    environment:
+      DB_HOST: ids_db
+      DB_PORT: 5432
+      DB_NAME: ids_db
+      DB_USER: root
+      DB_PASSWORD: root
+    depends_on:
+      - ids_db
+    ports:
+      - "8004:8000"
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -102,4 +128,5 @@ volumes:
   orders_postgres_data:
   reservations_postgres_data:
   conciliator_postgres_data:
+  ids_postgres_data:
   pgadmin_data:

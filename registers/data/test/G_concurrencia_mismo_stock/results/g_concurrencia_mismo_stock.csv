@@ -1,3 +1,10 @@
 timestamp_utc,order_id,http_status,duracion_ms,body_snippet
 2026-04-04T01:43:06.154374+00:00,ORD-TST-996a12e6e1ad,409,13.79,"{""detail"":""Insufficient stock""}"
 2026-04-04T01:43:06.154374+00:00,ORD-TST-a50f8bee0571,409,14.58,"{""detail"":""Insufficient stock""}"
+<<<<<<< HEAD
+=======
+2026-04-04T15:55:34.706722+00:00,ORD-TST-dae879ac8227,409,10.67,"{""detail"":""Insufficient stock""}"
+2026-04-04T15:55:34.706722+00:00,ORD-TST-9e8e06835c36,409,10.85,"{""detail"":""Insufficient stock""}"
+2026-04-04T15:59:53.064162+00:00,ORD-TST-8f09b9db1af3,200,18.12,"{""message"":""Reservation created"",""reservation_id"":null,""order_id"":""ORD-TST-8f09b9db1af3"",""stock_id"":""STK00001"",""quantity"":1,""status"":""ACTIVE"",""expires_at"":""2026-04-04T16:29:53.060953+00:00""}"
+2026-04-04T15:59:53.064162+00:00,ORD-TST-862b1f65ee41,200,16.27,"{""message"":""Reservation created"",""reservation_id"":null,""order_id"":""ORD-TST-862b1f65ee41"",""stock_id"":""STK00001"",""quantity"":1,""status"":""ACTIVE"",""expires_at"":""2026-04-04T16:29:53.056513+00:00""}"
+>>>>>>> c2ab97ed5eca2b0d5c7bfe1a3d5e33801700e3d7

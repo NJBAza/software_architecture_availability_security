@@ -11,3 +11,25 @@ timestamp_utc,escenario,exito,duracion_s,notas
 2026-04-04T01:43:13.661917+00:00,G_diez,si,0.658,ok
 2026-04-04T01:43:13.737577+00:00,G_rollback,si,0.075,ok
 2026-04-04T01:43:15.517074+00:00,G_capacidad,si,1.779,ok
+<<<<<<< HEAD
+=======
+2026-04-04T15:55:10.431187+00:00,E1,si,0.566,import_IDS_con_PG_detenido
+2026-04-04T15:55:14.061155+00:00,E2,si,3.629,ver_e2_runtime_csv
+2026-04-04T15:55:34.670746+00:00,E3,si,20.609,ver_e3_carga_csv
+2026-04-04T15:55:34.680032+00:00,F1,si,0.008,ver_f1_csv
+2026-04-04T15:55:34.710722+00:00,G_mismo,si,0.030,ok
+2026-04-04T15:59:28.629746+00:00,E1,si,0.526,import_IDS_con_PG_detenido
+2026-04-04T15:59:32.289178+00:00,E2,si,3.659,ver_e2_runtime_csv
+2026-04-04T15:59:52.991927+00:00,E3,si,20.703,ver_e3_carga_csv
+2026-04-04T15:59:53.010163+00:00,F1,si,0.016,ver_f1_csv
+2026-04-04T15:59:53.066676+00:00,G_mismo,si,0.055,ok
+2026-04-04T16:11:07.246016+00:00,G_rollback_carga,si,674.179,ok
+2026-04-04T16:12:41.716542+00:00,G_diez,si,94.470,ok
+2026-04-04T16:12:41.848367+00:00,G_rollback,si,0.131,ok
+2026-04-04T16:12:43.025748+00:00,G_capacidad,si,1.177,ok
+2026-04-04T16:12:43.111668+00:00,G_escalado_tiempo_respuesta,si,0.085,ok
+2026-04-04T16:12:43.170090+00:00,G_rollback_carga_10pct_parejas,no,0.058,[WinError 10048] Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)
+2026-04-04T16:12:43.200898+00:00,G_rollback_carga_1pct,no,0.030,[WinError 10048] Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)
+2026-04-04T16:20:33.761940+00:00,G_latencia_escalonada,si,470.561,ok
+2026-04-04T16:26:35.613875+00:00,G_estocastico,si,361.851,ok
+>>>>>>> c2ab97ed5eca2b0d5c7bfe1a3d5e33801700e3d7

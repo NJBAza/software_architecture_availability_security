@@ -7,3 +7,4 @@ timestamp_utc,escenario,condiciones,nivel,total,detecciones_correctas,deteccion_
 2026-04-06T05:05:50.749683+00:00,deteccion_1pct,geo+dispositivo,10,10,0,0.00,0,2071.77,2075.56,2076.83,0,0.00
 2026-04-06T05:05:52.974947+00:00,deteccion_1pct,geo+dispositivo,100,100,0,0.00,0,2082.65,2107.31,2123.59,0,0.00
 2026-04-06T05:06:04.204550+00:00,deteccion_1pct,geo+dispositivo,1000,1000,0,0.00,0,2091.09,2144.39,2237.30,0,0.00
+2026-04-06T05:07:52.398427+00:00,deteccion_1pct,geo+dispositivo,10000,10000,0,0.00,0,2073.26,2112.14,2424.54,0,0.00

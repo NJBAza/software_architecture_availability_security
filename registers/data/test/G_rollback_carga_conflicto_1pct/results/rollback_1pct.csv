@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 timestamp_utc,escenario,vus,requests,success,errors,error_pct,avg_ms,p95_ms,rollback_409_count,duracion_s,stop_reason
+=======
+timestamp_utc,escenario,users,total_requests,conflict_requests,success,errors,error_pct,avg_ms,p95_ms,max_ms,avg_ms_per_user,rollback_409_count,duracion_s,stop_reason
+>>>>>>> c2ab97ed5eca2b0d5c7bfe1a3d5e33801700e3d7

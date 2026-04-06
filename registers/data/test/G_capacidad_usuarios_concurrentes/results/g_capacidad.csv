@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 timestamp_utc,escenario,vus,requests,duracion_s,rps,error_pct,p95_ms,url
 2026-04-04T01:43:15.515054+00:00,VUS=100,100,1000,1.776,563.00,0.0000,170.95,http://localhost:8002/health
+=======
+timestamp_utc,escenario,vus,requests,duracion_s,rps,error_pct,p95_ms,avg_ms_per_user,max_ms,url
+2026-04-04T16:12:43.021614+00:00,VUS=100,100,1000,1.172,0.00,100.0000,0.00,0.000000,0.00,http://localhost:8002/health
+>>>>>>> c2ab97ed5eca2b0d5c7bfe1a3d5e33801700e3d7
