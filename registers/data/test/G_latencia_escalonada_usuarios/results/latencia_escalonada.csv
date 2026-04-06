@@ -1,0 +1,1 @@
+timestamp_utc,escenario,vus,requests,success,errors,error_pct,avg_ms,p95_ms,rollback_409_count,duracion_s,stop_reason

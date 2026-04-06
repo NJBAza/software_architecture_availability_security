@@ -1,0 +1,2 @@
+timestamp_utc,escenario,vus,requests,duracion_s,rps,error_pct,p95_ms,url
+2026-04-04T01:43:15.515054+00:00,VUS=100,100,1000,1.776,563.00,0.0000,170.95,http://localhost:8002/health

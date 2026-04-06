@@ -1,0 +1,34 @@
+# PostgreSQL para el módulo IDS (apps/services/IDS.py).
+# Credenciales alineadas con DB_CONFIG: usuario postgres, contraseña 1234, base postgres, puerto 5432.
+#
+# Arranque:
+#   docker compose -f docker-compose.ids.yml up -d
+#
+# Semilla (desde la raíz del repositorio, con contenedor en ejecución):
+#   docker exec -i ids_postgres psql -U postgres -d postgres < scripts/ids_postgres_schema.sql
+#   docker exec -i ids_postgres psql -U postgres -d postgres < scripts/ids_postgres_seed.sql
+#
+# Windows PowerShell:
+#   Get-Content scripts/ids_postgres_schema.sql | docker exec -i ids_postgres psql -U postgres -d postgres
+#   Get-Content scripts/ids_postgres_seed.sql | docker exec -i ids_postgres psql -U postgres -d postgres
+
+services:
+  ids_postgres:
+    image: postgres:16-alpine
+    container_name: ids_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ids_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  ids_postgres_data:

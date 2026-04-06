@@ -1,0 +1,13 @@
+timestamp_utc,escenario,exito,duracion_s,notas
+2026-04-04T00:43:53.302439+00:00,F1,si,0.019,ver_f1_csv
+2026-04-04T00:52:11.622798+00:00,E1,si,1.250,import_IDS_con_PG_detenido
+2026-04-04T00:53:43.815714+00:00,uvicorn_start,no,0.000,API no respondio a tiempo
+2026-04-04T01:42:41.722200+00:00,E1,si,0.702,import_IDS_con_PG_detenido
+2026-04-04T01:42:45.522364+00:00,E2,si,3.799,ver_e2_runtime_csv
+2026-04-04T01:43:06.126795+00:00,E3,si,20.604,ver_e3_carga_csv
+2026-04-04T01:43:06.132057+00:00,F1,si,0.005,ver_f1_csv
+2026-04-04T01:43:06.155372+00:00,G_mismo,si,0.023,ok
+2026-04-04T01:43:13.003440+00:00,G_carga,si,6.848,ok
+2026-04-04T01:43:13.661917+00:00,G_diez,si,0.658,ok
+2026-04-04T01:43:13.737577+00:00,G_rollback,si,0.075,ok
+2026-04-04T01:43:15.517074+00:00,G_capacidad,si,1.779,ok
